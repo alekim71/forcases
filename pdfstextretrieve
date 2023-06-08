@@ -1,0 +1,33 @@
+! pip install PyPDF2
+
+import glob
+from PyPDF2 import PdfReader
+
+def search_text_in_documents():
+    folder_path = input("검색할 폴더 경로를 입력하세요: ")
+    search_text = input("검색할 텍스트를 입력하세요: ")
+
+    file_paths = glob.glob(folder_path + "/*.pdf")
+    
+    for file_path in file_paths:
+        try:
+            with open(file_path, 'rb') as file:
+                pdf = PdfReader(file)
+                num_pages = len(pdf.pages)
+                found = False
+                
+                for page_num in range(num_pages):
+                    page = pdf.pages[page_num]
+                    text = page.extract_text()
+                    
+                    if search_text in text:
+                        print(f"검색어 '{search_text}'를 찾았습니다. 문서: {file_path}, 페이지: {page_num + 1}")
+                        found = True
+                
+                if not found:
+                    print(f"검색어 '{search_text}'를 찾지 못했습니다. 문서: {file_path}")
+        
+        except Exception as e:
+            print(f"오류 발생: {str(e)}")
+
+search_text_in_documents()
