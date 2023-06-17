@@ -31,10 +31,9 @@ def search_text_in_documents():
                             print(f"검색어 '{search_text}'를 찾았습니다. 문서: {file_path}, 페이지: {page_num + 1}")
                             found = True
                             found_any = True
-                            break  # 검색어를 찾았으므로 더 이상 해당 문서를 검사하지 않음
 
                     if not found:
-                        print(f"검색어 '{search_text}'를 찾지 못했습니다. 문서: {file_path}")
+                        continue  # 검색어를 찾지 못했으면 다음 문서로 넘어감
 
             except Exception as e:
                 print(f"오류 발생: {str(e)}")
